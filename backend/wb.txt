@@ -1,0 +1,39 @@
+# Function to generate a random string of fixed length
+def random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for _ in range(length))
+
+# Function to generate a random price
+def random_price(min_price, max_price):
+    return round(random.uniform(min_price, max_price), 2)
+
+# Connect to the SQLite database (or create it if it doesn't exist)
+conn = sqlite3.connect('billing.db')
+cursor = conn.cursor()
+
+# Create a table for products if it doesn't exist
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Products (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price REAL NOT NULL
+)
+''')
+
+# Generate 100 random products
+for i in range(100):
+    name = f"Product {i+1}"
+    description = f"Description for {name}"
+    price = random_price(1, 100)
+    
+    # Insert the product data into the table
+    cursor.execute('''
+    INSERT INTO products (name, description, price) VALUES (?, ?, ?)
+    ''', (name, description, price))
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()
+
+print("Random product data has been generated and inserted into the SQLite database.")
