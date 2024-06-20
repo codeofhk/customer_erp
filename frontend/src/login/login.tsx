@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     setMessage(''); // Clear any previous messages
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/billing/login`, { username, password }, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, { username, password }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -23,7 +23,8 @@ const Login: React.FC = () => {
       if (data.token) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('billing_no', data.billing_no);
-        navigate('/billing');
+        navigate('/dashboard');
+        //else if(data.permission === 'billing') {navigate('/billing');}
       } else {
         setMessage(data.message || 'Login failed. Please check your credentials and try again.');
       }

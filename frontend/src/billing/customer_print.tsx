@@ -79,8 +79,8 @@ const Customer: React.FC = () => {
     .then((response) => {
       console.log(response.data)
 
-      const data = response.data.customer;
-
+      const data = response.data.details;
+      //console.log(data)
       const [_, firstName, email, address, contact] = data;
       setFirstName(firstName);
       setLastName('');
@@ -121,8 +121,8 @@ const Customer: React.FC = () => {
     <div className="container mx-auto max-w-7xl p-6 bg-white shadow-md rounded-md flex flex-col">
       <h1 className="text-2xl font-semibold mb-4 text-center">Customer Details</h1>
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className=' flex'>
-          <label className="block text-gray-700 font-medium m-2">First Name:</label>
+        <div className="flex items-center">
+          <label className="block text-gray-700 font-medium mr-2">First Name:</label>
           <input
             type="text"
             value={firstName}
@@ -130,19 +130,19 @@ const Customer: React.FC = () => {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
-        <div className=' flex'>
-          <label className="block text-gray-700 font-medium m-2">Last Name:</label>
+        <div className="flex items-center">
+          <label className="block text-gray-700 font-medium mr-2">Last Name:</label>
           <input
             type="text"
             value={lastName}
             onChange={handleLastNameChange}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-          /> 
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className=" flex mb-4">
-          <label className="block text-gray-700 font-medium mb-1">Email:</label>
+        <div className="flex items-center">
+          <label className="block text-gray-700 font-medium mr-2">Email:</label>
           <input
             type="email"
             value={email}
@@ -150,10 +150,10 @@ const Customer: React.FC = () => {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
-        <div className=" flex mb-4">
-          <label className="block text-gray-700 font-medium mb-1">Contact:</label>
+        <div className="flex items-center">
+          <label className="block text-gray-700 font-medium mr-2">Contact:</label>
           <input
-            type="text" // Corrected type for contact field
+            type="text"
             value={contact}
             onChange={handlePhoneNumberChange}
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -163,17 +163,20 @@ const Customer: React.FC = () => {
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-1">Address:</label>
         <input
-          type="text" // Corrected type for address field
+          type="text"
           value={address}
           onChange={handleAddressChange}
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         />
         {selectContact.length === 0 ? (
-          <button onClick={handleNewCustomer}>{newCustomer}</button>
+          <button onClick={handleNewCustomer} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            New Customer
+          </button>
         ) : (
           <select
-            className="w-full mt-2 rounded shadow-lg"
-            onChange={(e) => handleContactClick(e)}>
+            className="w-full mt-2 px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            onChange={(e) => handleContactClick(e)}
+          >
             {selectContact.map((contact, index) => (
               <option key={index} value={contact}>
                 {contact}
@@ -182,13 +185,14 @@ const Customer: React.FC = () => {
           </select>
         )}
       </div>
-
-      <h2 className="text-xl font-medium text-right">Total Price: {totalPrice}</h2>
-
-      <button onClick={handleCheckout}>Checkout</button> 
-      {checkout ? <Checkout/>:<> </>}
+  
+      <h2 className="text-xl font-medium text-right mb-4">Total Price: {totalPrice}</h2>
+  
+      <button onClick={handleCheckout} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+        Checkout
+      </button>
+      {checkout ? <Checkout /> : <></>}
     </div>
-  );
-};
-
+  ) 
+}
 export default Customer;

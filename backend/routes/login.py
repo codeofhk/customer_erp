@@ -3,7 +3,7 @@ import sqlite3
 import bcrypt
 import jwt
 from datetime import datetime,timedelta
-from fastapi import APIRouter
+from fastapi import APIRouter,Request
 
 router = APIRouter()
 
@@ -27,7 +27,7 @@ def generate_token(username: str) -> str:
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
     return token
 
-@router.post('/billing/login')
+@router.post('/login')
 async def home(item : Item):
 	print('login')
 	hashed_password = bcrypt.hashpw(item.password.encode('utf-8'), bcrypt.gensalt(10))
@@ -40,8 +40,12 @@ async def home(item : Item):
 		return {'token':'','message':'User not found'}
 	else:
 		if bcrypt.checkpw(item.password.encode('utf-8'), password_from_db[0]):
+			user_id = cursor.execute('select id from user where username = ?',(item.username,)).fetchone()[0]
+			#rights = conn_users.execute("select rights from rights where user_id = ?",(user_id,)).fetchone()[0]
+			#print(rights)
 			token = generate_token(item.username)
+			#print(conn_billing.execute('''select id from billings order by id desc limit 1''').fetchone()[0]+1) 
 			return {'token':token,'message':'Login successful','billing_no': conn_billing.execute('''select id from billings order by id desc limit 1''').fetchone()[0]+1} 
 		else:
 			return {'token':'','message':'Invalid password'}	
-	
+		

@@ -97,7 +97,7 @@ const Billing: React.FC = () => {
   const totalPrice = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
   return (
-    <div className="container mx-auto p-4 md:p-6 lg:p-12 max-w-7xl">
+    <div className="container mx-auto p-4 md:p-6 lg:p-12 max-w-7xl bg-paper">
       <h1 className="text-3xl font-bold mb-6 text-center">Grocery Billing Page</h1>
       {billingNo && (
       <div className="mt-4">

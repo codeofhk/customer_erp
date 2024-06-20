@@ -8,10 +8,10 @@ const Checkout: React.FC  = () => {
     };
   
     return (
-      <div>
-        <h2>Select Payment Method</h2>
+      <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto mt-10">
+        <h2 className="text-2xl font-bold mb-4 text-center">Select Payment Method</h2>
         <form>
-          <div>
+          <div className="flex items-center mb-4">
             <input
               type="radio"
               id="cash"
@@ -19,10 +19,11 @@ const Checkout: React.FC  = () => {
               value="Cash"
               checked={paymentMethod === 'Cash'}
               onChange={handlePaymentMethodChange}
+              className="form-radio h-4 w-4 text-blue-600"
             />
-            <label htmlFor="cash">Cash</label>
+            <label htmlFor="cash" className="ml-2 block text-sm font-medium text-gray-700">Cash</label>
           </div>
-          <div>
+          <div className="flex items-center mb-4">
             <input
               type="radio"
               id="credit"
@@ -30,10 +31,11 @@ const Checkout: React.FC  = () => {
               value="Credit"
               checked={paymentMethod === 'Credit'}
               onChange={handlePaymentMethodChange}
+              className="form-radio h-4 w-4 text-blue-600"
             />
-            <label htmlFor="credit">Credit</label>
+            <label htmlFor="credit" className="ml-2 block text-sm font-medium text-gray-700">Credit</label>
           </div>
-          <div>
+          <div className="flex items-center mb-4">
             <input
               type="radio"
               id="upi"
@@ -41,13 +43,13 @@ const Checkout: React.FC  = () => {
               value="UPI"
               checked={paymentMethod === 'UPI'}
               onChange={handlePaymentMethodChange}
+              className="form-radio h-4 w-4 text-blue-600"
             />
-            <label htmlFor="upi">UPI</label>
+            <label htmlFor="upi" className="ml-2 block text-sm font-medium text-gray-700">UPI</label>
           </div>
         </form>
-        <p>Selected Payment Method: {paymentMethod}</p>
+        <p className="mt-4 text-center text-gray-600">Selected Payment Method: {paymentMethod}</p>
       </div>
     );
-  };
-
+  }
 export default Checkout
